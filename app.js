@@ -1,4 +1,6 @@
 const path = require("path");
+require("dotenv").config();
+const env = process.env;
 
 const express = require("express");
 
@@ -13,8 +15,7 @@ const mongooseSession = require("connect-mongodb-session")(session);
 const multer = require('multer');
 
 
-
-const DB_PATH = 'mongodb+srv://root:root26@airbnb-cluster.te04plt.mongodb.net/airbnb?retryWrites=true&w=majority&appName=airbnb-Cluster';
+const DB_PATH = process.env.MONGODB_URI;
 
 
 const app = express();
@@ -60,7 +61,7 @@ app.use(express.static(path.join(rootDir, "public")));
 app.use('/uploads', express.static(path.join(rootDir, "uploads")));
 
 app.use(session({
-    secret: 'airbnb secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     store: store
@@ -83,7 +84,7 @@ app.use(authRouter);
 
 app.use(error);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(DB_PATH).then(() => {
     console.log('Connect to mongo db');
