@@ -1,0 +1,60 @@
+<header class="bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex justify-between items-center">
+      <ul class="flex space-x-1">
+        <li>
+          <a href="/" class="<%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+            airbnb
+          </a>
+        </li>
+        <% if(isLoggedIn){ %>
+          <% if(user && user.userType === 'guest'){ %>
+            <li>
+              <a href="/homes" class="<%= currentPage === 'home' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+                Home-List
+              </a>
+            </li>
+            <li>
+              <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+                Bookings
+              </a>
+            </li>
+            <li>
+              <a href="/favourite" class="<%= currentPage === 'favourite' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+                Favourite
+              </a>
+            </li>
+          <% } else { %>  
+            <li>
+              <a href="/host/home" class="<%= currentPage === 'host-home' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+                Host Homes
+              </a>
+            </li>
+            <li>
+              <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+                Add Home
+              </a>
+            </li>
+          <% } %>
+        <% } %>
+      </ul>
+      
+      <div class="flex items-center space-x-3">
+        <% if(!isLoggedIn){ %>
+        <a href="/signup" class="bg-red-700 hover:bg-red-400 py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+          Signup
+        </a>
+        <a href="/login" class="bg-red-700 hover:bg-red-400 py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+          Login
+        </a>
+        <% } else { %>
+        <form action="/logout" method="POST">
+          <button type="submit" class="bg-red-700 hover:bg-red-400 py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+            Logout
+          </button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+</header>
