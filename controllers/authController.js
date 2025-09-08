@@ -16,7 +16,6 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = async (req, res, next) => {
-  console.log("User logged in");
 
   const {email, password} = req.body;
   const user = await User.findOne({email:email});
@@ -53,7 +52,6 @@ exports.postLogin = async (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(() => {
-    console.log("User logged out");
     res.redirect("/");
   });
 };

@@ -1,60 +1,145 @@
-<header class="bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg">
+<header class="bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg sticky top-0 z-50">
   <nav class="container mx-auto px-4 py-4">
-    <div class="flex justify-between items-center">
-      <ul class="flex space-x-1">
-        <li>
-          <a href="/" class="<%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
-            airbnb
-          </a>
-        </li>
+    <div class="flex items-center justify-between">
+      
+      <!-- Logo (left) -->
+      <a href="/" class="text-2xl font-extrabold tracking-wide flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             stroke-width="2" stroke="currentColor" class="w-7 h-7 text-white">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 2L2 7l10 5 10-5-10-5zm0 10v10m-7-4l7 4 7-4"/>
+        </svg>
+        airbnb
+      </a>
+
+      <!-- Nav Links (center on desktop) -->
+      <ul class="hidden md:flex space-x-4 absolute left-1/2 transform -translate-x-1/2">
         <% if(isLoggedIn){ %>
           <% if(user && user.userType === 'guest'){ %>
             <li>
-              <a href="/homes" class="<%= currentPage === 'home' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+              <a href="/homes"
+                 class="py-2.5 px-5 rounded-lg font-medium transition-all duration-300 
+                 <%= currentPage === 'home' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
                 Home-List
               </a>
             </li>
             <li>
-              <a href="/bookings" class="<%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+              <a href="/bookings"
+                 class="py-2.5 px-5 rounded-lg font-medium transition-all duration-300 
+                 <%= currentPage === 'bookings' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
                 Bookings
               </a>
             </li>
             <li>
-              <a href="/favourite" class="<%= currentPage === 'favourite' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+              <a href="/favourite"
+                 class="py-2.5 px-5 rounded-lg font-medium transition-all duration-300 
+                 <%= currentPage === 'favourite' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
                 Favourite
               </a>
             </li>
-          <% } else { %>  
+          <% } else { %>
             <li>
-              <a href="/host/home" class="<%= currentPage === 'host-home' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+              <a href="/host/home"
+                 class="py-2.5 px-5 rounded-lg font-medium transition-all duration-300 
+                 <%= currentPage === 'host-home' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
                 Host Homes
               </a>
             </li>
             <li>
-              <a href="/host/add-home" class="<%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400'%> py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
+              <a href="/host/add-home"
+                 class="py-2.5 px-5 rounded-lg font-medium transition-all duration-300 
+                 <%= currentPage === 'addHome' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
                 Add Home
               </a>
             </li>
           <% } %>
         <% } %>
       </ul>
-      
-      <div class="flex items-center space-x-3">
+
+      <!-- Auth Buttons (desktop, right) -->
+      <div class="hidden md:flex items-center space-x-3">
         <% if(!isLoggedIn){ %>
-        <a href="/signup" class="bg-red-700 hover:bg-red-400 py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
-          Signup
-        </a>
-        <a href="/login" class="bg-red-700 hover:bg-red-400 py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
-          Login
-        </a>
+          <a href="/signup" class="bg-white text-red-600 font-semibold py-2.5 px-5 rounded-lg hover:bg-red-100">Signup</a>
+          <a href="/login" class="bg-white text-red-600 font-semibold py-2.5 px-5 rounded-lg hover:bg-red-100">Login</a>
         <% } else { %>
-        <form action="/logout" method="POST">
-          <button type="submit" class="bg-red-700 hover:bg-red-400 py-2.5 px-5 rounded-lg font-medium transition-all duration-300 hover:shadow-md transform hover:scale-105">
-            Logout
-          </button>
-        </form>
+          <form action="/logout" method="POST">
+            <button type="submit" class="bg-white text-red-600 font-semibold py-2.5 px-5 rounded-lg hover:bg-red-100">Logout</button>
+          </form>
         <% } %>
       </div>
+
+      <!-- Hamburger (mobile, right) -->
+      <button id="menu-toggle" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
     </div>
+
+    <!-- Mobile Menu -->
+    <ul id="menu" class="hidden flex-col mt-4 space-y-2 md:hidden bg-red-600 rounded-lg p-4 shadow-lg">
+      <% if(isLoggedIn){ %>
+        <% if(user && user.userType === 'guest'){ %>
+          <li>
+            <a href="/homes"
+               class="block py-2 px-4 rounded font-medium 
+               <%= currentPage === 'home' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
+              Home-List
+            </a>
+          </li>
+          <li>
+            <a href="/bookings"
+               class="block py-2 px-4 rounded font-medium 
+               <%= currentPage === 'bookings' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
+              Bookings
+            </a>
+          </li>
+          <li>
+            <a href="/favourite"
+               class="block py-2 px-4 rounded font-medium 
+               <%= currentPage === 'favourite' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
+              Favourite
+            </a>
+          </li>
+        <% } else { %>
+          <li>
+            <a href="/host/home"
+               class="block py-2 px-4 rounded font-medium 
+               <%= currentPage === 'host-home' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
+              Host Homes
+            </a>
+          </li>
+          <li>
+            <a href="/host/add-home"
+               class="block py-2 px-4 rounded font-medium 
+               <%= currentPage === 'addHome' ? 'bg-red-400 shadow-md' : 'hover:bg-red-400' %>">
+              Add Home
+            </a>
+          </li>
+        <% } %>
+      <% } %>
+
+      <!-- Mobile Auth -->
+      <div class="mt-2 border-t border-red-400 pt-2">
+        <% if(!isLoggedIn){ %>
+          <a href="/signup" class="block bg-white text-red-600 py-2 px-4 rounded mb-2">Signup</a>
+          <a href="/login" class="block bg-white text-red-600 py-2 px-4 rounded">Login</a>
+        <% } else { %>
+          <form action="/logout" method="POST">
+            <button type="submit" class="w-full bg-white text-red-600 py-2 px-4 rounded">Logout</button>
+          </form>
+        <% } %>
+      </div>
+    </ul>
   </nav>
 </header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
+  toggle.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>

@@ -11,8 +11,16 @@ exports.getHome = (req, res, next) => {
     ) =>  res.render('store/home-list', {registeredHomes: registeredHomes, pageTitle: 'Home list', currentPage:'home', isLoggedIn:req.session.isLoggedIn, user: req.session.user }));
 }
 
-exports.getBookings = (req, res, next) => {
-     res.render('store/bookings', {pageTitle: 'My Bookings', currentPage:'bookings', isLoggedIn:req.session.isLoggedIn, user: req.session.user });
+exports.getBookings = async (req, res, next) => {
+  const userId = req.session.user._id;
+  const user = await User.findById(userId).populate("bookings");
+  res.render("store/bookings", {
+    pageTitle: "My Bookings",
+    currentPage: "bookings",
+    isLoggedIn: req.session.isLoggedIn,
+    user: req.session.user,
+    bookedHomes: user.bookings
+  });
 }
 
 exports.getFavouriteList = async (req, res, next) => {
@@ -58,6 +66,16 @@ exports.postAddToFavorite = async (req,res,next) => {
     res.redirect('/favourite');
 }
 
+exports.postBookings = async (req, res, next) => {
+  const homeId = req.body.id;
+  const userId = req.session.user._id;
+  const user = await User.findById(userId);
+  if (!user.bookings.includes(homeId)) {
+    user.bookings.push(homeId);
+    await user.save();
+  }
+  res.redirect('/bookings');
+};
 
 exports.postRemoveFromFavorite = async (req,res,next) => {
 
@@ -73,6 +91,19 @@ exports.postRemoveFromFavorite = async (req,res,next) => {
     res.redirect('/favourite');
 }
 
+exports.postRemoveFromBooking = async (req, res, next) => {
+
+  const homeId = req.body.id;
+  const userId = req.session.user._id;
+
+  const user = await User.findById(userId);
+
+  if (user.bookings.includes(homeId)) {
+    user.bookings = user.bookings.filter(id => id.toString() !== homeId);
+    await user.save();
+  }
+  res.redirect('/bookings');
+}
 
 exports.getHouseRulesPdf = [
   (req, res, next) => {

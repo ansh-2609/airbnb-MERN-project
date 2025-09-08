@@ -1,6 +1,7 @@
-const path = require("path");
 require("dotenv").config();
-const env = process.env;
+
+
+const path = require("path");
 
 const express = require("express");
 

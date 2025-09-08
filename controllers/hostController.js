@@ -17,7 +17,6 @@ exports.getEditHome = (req, res, next) => {
             return res.redirect('/host/home');
         }
 
-        console.log(homeId, editing, home);
         res.render('host/edit-home', {pageTitle: 'Edit your Home', currentPage: 'host-home', editing:editing,
         home:home, isLoggedIn:req.session.isLoggedIn, user: req.session.user });
 
@@ -104,6 +103,11 @@ exports.postDeleteHome = async (req, res, next) => {
   await User.updateMany(
     { favourites: homeId }, // find users who have this homeId in favourites
     { $pull: { favourites: homeId } } // remove it from the array
+  );
+
+  await User.updateMany(
+    { bookings: homeId }, // find users who have this homeId in bookings
+    { $pull: { bookings: homeId } } // remove it from the array
   );
 
   console.log("Home deleted successfully");

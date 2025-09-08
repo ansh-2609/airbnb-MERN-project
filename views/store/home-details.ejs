@@ -1,51 +1,130 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <%- include('../partials/nav') %>
+    
+    <main class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Hero Section -->
+        <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-8">
+            <div class="relative">
+                <img src="../../<%= home.photo %>" alt="<%= home.houseName %>" 
+                     class="w-full h-auto object-contain max-h-60 md:max-h-72 lg:max-h-80">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 drop-shadow-lg">
+                        <%= home.houseName %>
+                    </h1>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+                            <span class="text-yellow-300 text-sm md:text-base">★</span>
+                            <span class="ml-1 text-xs md:text-sm font-medium"><%= home.rating %> / 5</span>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+                            <span class="text-xs md:text-sm font-medium"><%= home.location %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <%- include('../partials/head') %>
-  </head>
-  <body>
-      <%- include('../partials/nav') %>
-      <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-6xl">
-          <h2 class="text-3xl text-red-500 font-bold text-center mb-6">
-              Details of <%= home.houseName %>
-          </h2>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div class="rounded-lg overflow-hidden">
-                  <img src="../../<%= home.photo %>" alt="<%= home.homeName %>" class="w-full h-96 object-cover">
-              </div>
-              
-              <div class="space-y-6">
-                  <div class="border-b pb-4">
-                      <h3 class="text-2xl font-semibold mb-2">Description</h3>
-                      <p class="text-gray-600"><%= home.description %></p>
-                  </div>
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Description Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-2 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full mr-4"></div>
+                        <h3 class="text-2xl font-bold text-gray-800">About This Place</h3>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-lg"><%= home.description %></p>
+                </div>
 
-                  <div class="border-b pb-4">
-                      <h3 class="text-2xl font-semibold mb-2">Location</h3>
-                      <p class="text-gray-600"><%= home.location %></p>
-                  </div>
-                  
-                  <div class="border-b pb-4">
-                      <h3 class="text-2xl font-semibold mb-2">Price</h3>
-                      <p class="text-green-600 text-xl font-bold">$<%= home.pricePerNight %> / night</p>
-                  </div>
-                  
-                  <div class="border-b pb-4">
-                      <h3 class="text-2xl font-semibold mb-2">Rating</h3>
-                      <div class="flex items-center">
-                          <span class="text-yellow-400 text-xl">★</span>
-                          <span class="ml-2 text-lg"><%= home.rating %> / 5</span>
-                      </div>
-                  </div>
-                  <div class="border-b pb-4">
-                    <a href="/rules/<%= home._id %>" class="flex flex-col text-blue-600 hover:text-blue-800">
-                    <img src="/images/document.png" alt="House Rules pdf" class="w-12 h-12 object-cover">
-                    <span>Download Home Rules </span></a>
-                  </div>
-                  <div class="mt-2">
-                    <%- include('../partials/favourite') %>
-                  </div>
-              </div>
-          </div>
-      </main>
-  </body>
-</html>
+                <!-- Location Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-2 h-8 bg-gradient-to-b from-green-500 to-teal-600 rounded-full mr-4"></div>
+                        <h3 class="text-2xl font-bold text-gray-800">Location</h3>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="text-gray-600 text-lg font-medium"><%= home.location %></p>
+                    </div>
+                </div>
+
+                <!-- House Rules Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-2 h-8 bg-gradient-to-b from-orange-500 to-red-600 rounded-full mr-4"></div>
+                        <h3 class="text-2xl font-bold text-gray-800">House Rules</h3>
+                    </div>
+                    <a href="/rules/<%= home._id %>" 
+                       class="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <img src="/images/document.png" alt="Document" class="w-6 h-6 mr-3">
+                        <span class="font-medium">Download House Rules</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Pricing Card -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 sticky top-8">
+                    <div class="text-center mb-6">
+                        <div class="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                            Rs. <%= home.pricePerNight %>
+                        </div>
+                        <div class="text-gray-500 text-lg">per night</div>
+                    </div>
+
+                    <!-- Rating Display -->
+                    <div class="flex items-center justify-center mb-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400 text-xl mr-2">
+                                <% for(let i = 0; i < Math.floor(home.rating); i++) { %>
+                                    <span>★</span>
+                                <% } %>
+                                <% if(home.rating % 1 !== 0) { %>
+                                    <span class="text-yellow-200">★</span>
+                                <% } %>
+                            </div>
+                            <span class="text-xl font-bold text-gray-800"><%= home.rating %></span>
+                            <span class="text-gray-500 ml-1">/ 5</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-4">
+                        <%- include('../partials/favourite') %>
+                        <%- include('../partials/book', {home:home}) %>
+                    </div>
+                </div>
+
+                <!-- Quick Info Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">Quick Info</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Instant booking available</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Free cancellation</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                            <span class="text-gray-700">24/7 customer support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html
